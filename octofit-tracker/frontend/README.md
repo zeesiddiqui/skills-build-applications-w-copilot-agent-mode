@@ -1,16 +1,34 @@
-# React + Vite
+# OctoFit Tracker Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+This React app uses the OctoFit backend API and supports both local development and GitHub Codespaces.
 
-Currently, two official plugins are available:
+## Required environment variable
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Define `VITE_CODESPACE_NAME` in `.env.local` before running the app in a Codespace.
 
-## React Compiler
+Example:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+VITE_CODESPACE_NAME=my-codespace-name
+```
 
-## Expanding the Oxlint configuration
+When the variable is set, requests are sent to:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```text
+https://${VITE_CODESPACE_NAME}-8000.app.github.dev/api/[component]/
+```
+
+If the variable is not set, the frontend safely falls back to `http://localhost:8000` instead of generating `https://undefined-8000...` URLs.
+
+## Component routes
+
+The app uses React Router and fetches data for the following pages:
+
+- `/`
+- `/teams`
+- `/activities`
+- `/leaderboard`
+- `/workouts`
+- `/users`
+
+The frontend accepts array responses and common paginated payloads such as `data`, `items`, `results`, and `records`.
