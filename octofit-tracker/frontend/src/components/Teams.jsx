@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeResponseData } from '../lib/api.js';
+import { getApiBaseUrl, normalizeResponseData } from '../lib/api.js';
+
+const API_ENDPOINT = '/api/teams/';
 
 function Teams() {
   const [items, setItems] = useState([]);
@@ -9,7 +11,7 @@ function Teams() {
   useEffect(() => {
     async function loadTeams() {
       try {
-        const response = await fetch(getApiUrl('teams'));
+        const response = await fetch(`${getApiBaseUrl()}${API_ENDPOINT}`);
         const payload = await response.json();
         const data = normalizeResponseData(payload);
 

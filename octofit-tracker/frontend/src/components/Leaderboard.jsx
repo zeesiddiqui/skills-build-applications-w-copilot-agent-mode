@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
-import { getApiUrl, normalizeResponseData } from '../lib/api.js';
+import { getApiBaseUrl, normalizeResponseData } from '../lib/api.js';
+
+const API_ENDPOINT = '/api/leaderboard/';
 
 function Leaderboard() {
   const [items, setItems] = useState([]);
@@ -9,7 +11,7 @@ function Leaderboard() {
   useEffect(() => {
     async function loadLeaderboard() {
       try {
-        const response = await fetch(getApiUrl('leaderboard'));
+        const response = await fetch(`${getApiBaseUrl()}${API_ENDPOINT}`);
         const payload = await response.json();
         const data = normalizeResponseData(payload);
 
