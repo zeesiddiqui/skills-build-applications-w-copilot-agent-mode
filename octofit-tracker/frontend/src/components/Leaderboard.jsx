@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { getApiBaseUrl, normalizeResponseData } from '../lib/api.js';
 
-const API_ENDPOINT = '/api/leaderboard/';
-const codespaceApiUrl = `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev${API_ENDPOINT}`;
-const fallbackApiUrl = `http://localhost:8000${API_ENDPOINT}`;
-const API_URL = import.meta.env.VITE_CODESPACE_NAME ? codespaceApiUrl : fallbackApiUrl;
+const API_URL = import.meta.env.VITE_CODESPACE_NAME
+  ? `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/`
+  : 'http://localhost:8000/api/leaderboard/';
 
 function Leaderboard() {
   const [items, setItems] = useState([]);
