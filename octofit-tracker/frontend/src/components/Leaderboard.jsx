@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { getApiBaseUrl, normalizeResponseData } from '../lib/api.js';
 
 const API_ENDPOINT = '/api/leaderboard/';
+const codespaceApiUrl = `https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev${API_ENDPOINT}`;
+const fallbackApiUrl = `http://localhost:8000${API_ENDPOINT}`;
+const API_URL = import.meta.env.VITE_CODESPACE_NAME ? codespaceApiUrl : fallbackApiUrl;
 
 function Leaderboard() {
   const [items, setItems] = useState([]);
@@ -11,7 +14,7 @@ function Leaderboard() {
   useEffect(() => {
     async function loadLeaderboard() {
       try {
-        const response = await fetch(`${getApiBaseUrl()}${API_ENDPOINT}`);
+        const response = await fetch(API_URL || `${getApiBaseUrl()}${API_ENDPOINT}`);
         const payload = await response.json();
         const data = normalizeResponseData(payload);
 
